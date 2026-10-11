@@ -1,10 +1,14 @@
 # Activamos el Motor de reescritura de URL
 RewriteEngine On
 
+# Mostrar errores en lugar de registrarlos
+php_flag display_errors On
+php_value error_reporting -1
+
 # Condiciones de redirección
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Reconvertir de: https://miapp.live/articulos/asador-metal-1.5m
 #   a: https://miapp.live/index.php?url=/articulos/asador-metal-1.5m
-RewriteRule ^(.*)$ index.php?$1
+RewriteRule ^(.*)$ index.php?url=$1
