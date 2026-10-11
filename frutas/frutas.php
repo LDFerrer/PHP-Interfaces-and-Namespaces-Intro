@@ -10,7 +10,6 @@ trait TFrutas{
     }
 }
 
-
 trait TCaracteristicas{
     public string $forma;
     public string $color;
