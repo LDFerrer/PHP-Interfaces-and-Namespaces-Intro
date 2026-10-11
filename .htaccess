@@ -1,0 +1,10 @@
+# Activamos el Motor de reescritura de URL
+RewriteEngine On
+
+# Condiciones de redirección
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Reconvertir de: https://miapp.live/articulos/asador-metal-1.5m
+#   a: https://miapp.live/index.php?url=/articulos/asador-metal-1.5m
+RewriteRule ^(.*)$ index.php?$1

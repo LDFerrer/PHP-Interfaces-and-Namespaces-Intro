@@ -1,23 +1,17 @@
 <?php
+// Obtengo la URL del navegador
+$url = $_GET['url'];
 
-error_reporting(-1);
+// Aquí guardaré la ruta final del script que procesará la solicitud
+$endPoint = NULL;
 
-ini_set('display_errors', 1);
+// Verifico que exista el archivo de rutas, de ser así: LO CARGO; sinó: 
+$routes = is_readable( $file = __DIR__.'/routes.php' ) && require_once( $file );
 
-require_once( __DIR__ . '/DataInterfaces/Model.php' );
+// Si no hay rutas definidas, lanzo un error.
+!$routes && print('No has creado el archivo de rutas');
 
-class myClass implements DataInterfaces\Model\APISource {
-	public function __construct(){
-		echo 'Succesfully initialized.';
-	}
-	
-	public function ErrorEvent() {
-		
-	}
-	
-	public function checkAsWriteOp(): bool {
-		
-	}
-}
+$endPoint = !!$routes[ $url ] ? ( __DIR__ . $routes[ $url ] ) : FALSE;
 
-$instancia = new myClass;
+// Verifico que el EndPoint solicitado exista:
+$endPoint && is_readable( $endPoint ) && require_once( $endPoint );
